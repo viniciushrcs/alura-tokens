@@ -20,7 +20,7 @@ export const connectWallet = async () => {
 
       return { account, balance: balanceInTokens, provider, signer };
     } catch (error) {
-      console.error('User negou acesso a carteira');
+      console.error('Usuário negou acesso a carteira');
       toast.error('Por favor, conecte sua carteira para continuar')
     }
   } else {
