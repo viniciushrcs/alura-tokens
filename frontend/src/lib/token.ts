@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const bankAddress = '0x45829C52543c5119e1aCC2096C62286DA1B3c458';
 
 export const buyToken = async (address: string, price: number) => {
-  const contractAddress = '0xd16490E5e9d07b62D22ff210427003d539104A68'; 
+  const contractAddress = '0x8650D02031aDdd9093DB938194CE9Bd80B5754DE'; 
   const contractABI = [
     "function transfer(address to, uint amount) public returns (bool)"
   ];
