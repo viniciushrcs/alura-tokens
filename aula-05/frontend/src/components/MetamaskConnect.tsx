@@ -1,17 +1,15 @@
 'use client';
-import { connectWallet } from '@/lib/wallet';
+import { connectWallet } from '../lib/wallet';
 import { useState } from 'react';
 
 const MetaMaskConnect = () => {
   const [account, setAccount] = useState<string | null>(null);
-  const [balance, setBalance] = useState<number | null>(null);
 
 
   const handleConnect = async () => {
     try {
-      const { account, balance } = await connectWallet();
-      setAccount(account);
-      setBalance(balance);
+      const wallet = await connectWallet();
+      setAccount(wallet?.account);
     } catch (error) {
       console.error('Falha ao conectar', error);
     }
@@ -26,7 +24,6 @@ const MetaMaskConnect = () => {
       {account ? (
         <div>
           <p className='text-[#01080E]'>Conectado: {formatAccount(account)}</p>
-          <p className='text-[#01080E]'>Saldo: {balance} BTK</p>
         </div>
       ) : (
         <button
