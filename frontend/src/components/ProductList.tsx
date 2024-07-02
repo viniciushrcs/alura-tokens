@@ -1,5 +1,5 @@
 'use client';
-import { buyToken } from "@/lib/token";
+import { buyProduct } from "@/lib/token";
 import { toast } from "react-toastify";
 
 type Product = {
@@ -15,83 +15,83 @@ const products: Product[] = [
     id: 1,
     name: "Tênis de Corrida",
     description: "Tênis de corrida confortável e resistente.",
-    price: 120,
+    price: 12,
     imageUrl: "/products/tenis.jpg",
   },
   {
     id: 2,
     name: "Kit de Panelas",
     description: "Conjunto de panelas antiaderentes para sua cozinha.",
-    price: 180,
+    price: 18,
     imageUrl: "/products/panela.jpg",
   },
   {
     id: 3,
     name: "Batedeira",
     description: "Batedeira de alta performance para suas receitas.",
-    price: 150,
+    price: 15,
     imageUrl: "/products/batedeira.jpg",
   },
   {
     id: 7,
     name: "Smartphone",
     description: "Smartphone com a última tecnologia e design inovador.",
-    price: 1000,
+    price: 10,
     imageUrl: "/products/smartphone.jpg",
   },
   {
     id: 8,
     name: "Tablet",
     description: "Tablet para trabalho e entretenimento.",
-    price: 600,
+    price: 60,
     imageUrl: "/products/tablet.jpg",
   },
   {
     id: 9,
     name: "Smartwatch",
     description: "Smartwatch com monitoramento de atividades e saúde.",
-    price: 300,
+    price: 30,
     imageUrl: "/products/relogio.jpg",
   },
   {
     id: 10,
     name: "Fone de Ouvido Bluetooth",
     description: "Fone de ouvido sem fio com alta qualidade de som.",
-    price: 150,
+    price: 15,
     imageUrl: "/products/fone.jpg",
   },
   {
     id: 13,
     name: "Notebook",
     description: "Notebook de alta performance para trabalho e jogos.",
-    price: 1500,
+    price: 15,
     imageUrl: "/products/notebook.jpg",
   },
   {
     id: 14,
     name: "Câmera Fotográfica",
     description: "Câmera fotográfica profissional com alta resolução.",
-    price: 800,
+    price: 8,
     imageUrl: "/products/camera.jpg",
   }
 ];
 
 const ProductList = () => {
   const handleBuy = async (price: number) => {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    });
     const address = accounts[0];
     try {
-      const result = await buyToken(address!, price);
-      if (result.success) {
-        toast.success(`Sucesso! Aqui está o seu recibo: ${result.txHash}`);
+      const result = await buyProduct(address, price);
+      if(result.isSuccess) {
+        toast.success(`Sucesso sua transação foi confirmada ${result.txHash}`)
       } else {
-        toast.error(`Erro na transação: ${result.error}`);
+        toast.error(`Ocorreu um erro: ${result.error}`)
       }
-    } catch (error) {
-      console.error('Failed to complete transaction', error);
-      toast.error('Erro na transação: Por favor tente novamente.');
+    } catch(e) { 
+      toast.error(`Erro no envio da transação: ${e}`)
     }
-
   }
 
   return (
